@@ -47,4 +47,22 @@ public class ParseReceiver extends ParsePushBroadcastReceiver {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+        JSONObject json = null;
+        try {
+            json = new JSONObject(intent.getExtras().getString("com.parse.Data"));
+            System.out.println(json);
+            s =json.getString("alert");
+            a = json.getString("senderId");
+
+            ChatActivity.showMessage(s, a);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }

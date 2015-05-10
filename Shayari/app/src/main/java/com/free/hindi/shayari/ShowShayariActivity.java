@@ -1,4 +1,4 @@
-package com.android.sneha.shayari;
+package com.free.hindi.shayari;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import com.google.android.gms.ads.AdView;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.startapp.android.publish.StartAppAd;
 
 import java.util.List;
 
@@ -23,22 +24,23 @@ public class ShowShayariActivity extends ActionBarActivity {
     TextView showshayari;
     protected List<ParseObject> mShayari;
     int i;
+    private StartAppAd startAppAd = new StartAppAd(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_shayari);
+        setContentView(com.free.hindi.shayari.R.layout.activity_show_shayari);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+        Toolbar toolbar = (Toolbar) findViewById(com.free.hindi.shayari.R.id.app_bar);
         setSupportActionBar(toolbar);
 
-        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdView mAdView = (AdView) findViewById(com.free.hindi.shayari.R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-        showshayari = (TextView) findViewById(R.id.textView);
+        showshayari = (TextView) findViewById(com.free.hindi.shayari.R.id.textView);
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Love");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(ShayarilistActivity.mimage);
         query.whereEqualTo("objectId", ShayarilistActivity.sid);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -65,7 +67,7 @@ public class ShowShayariActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_show_shayari, menu);
+        getMenuInflater().inflate(com.free.hindi.shayari.R.menu.menu_show_shayari, menu);
         return true;
     }
 
@@ -77,7 +79,7 @@ public class ShowShayariActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_share) {
+        if (id == com.free.hindi.shayari.R.id.action_share) {
             sharePost();
             return true;
         }
@@ -89,7 +91,13 @@ public class ShowShayariActivity extends ActionBarActivity {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_TEXT, showshayari.getText());
-        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_title)));
+        startActivity(Intent.createChooser(shareIntent, getString(com.free.hindi.shayari.R.string.share_title)));
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        startAppAd.onResume();
     }
 }

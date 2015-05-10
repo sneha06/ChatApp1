@@ -1,9 +1,11 @@
-package com.android.sneha.shayari;
+package com.free.hindi.shayari;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
+
+import com.startapp.android.publish.StartAppSDK;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -11,7 +13,8 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        StartAppSDK.init(this, "102735663", "203650813", true);
+        setContentView(com.free.hindi.shayari.R.layout.activity_main);
 
         final Handler handler = new Handler();
 
@@ -26,7 +29,7 @@ public class MainActivity extends ActionBarActivity {
                 MainActivity.this.finish();
 
             }
-        }, 4000);
+        }, 1000);
     }
 
 }

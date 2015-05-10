@@ -1,4 +1,4 @@
-package com.android.sneha.shayari;
+package com.free.hindi.shayari;
 
 import android.content.Context;
 import android.view.View;
@@ -33,26 +33,26 @@ public class ListAdapter extends ParseQueryAdapter<ParseObject> {
     public View getItemView(final ParseObject parseObject,View v, ViewGroup parent) {
 
         if (v == null) {
-            v = View.inflate(getContext(), R.layout.item_list_shayari, null);
+            v = View.inflate(getContext(), com.free.hindi.shayari.R.layout.item_list_shayari, null);
         }
 
         super.getItemView(parseObject, v, parent);
 
-        ImageView mealImage = (ImageView) v.findViewById(R.id.favorite_star);
+        ImageView mealImage = (ImageView) v.findViewById(com.free.hindi.shayari.R.id.favorite_star);
 
         if (img.equals("bewafa")) {
-            mealImage.setImageResource(R.drawable.bewafa);
+            mealImage.setImageResource(com.free.hindi.shayari.R.drawable.bewafa);
         }if(img.equals("dard")){
-            mealImage.setImageResource(R.drawable.dard);
+            mealImage.setImageResource(com.free.hindi.shayari.R.drawable.dard);
         }if(img.equals("love")){
-            mealImage.setImageResource(R.drawable.love);
+            mealImage.setImageResource(com.free.hindi.shayari.R.drawable.love);
         }if(img.equals("romantic")){
-            mealImage.setImageResource(R.drawable.romantic);
+            mealImage.setImageResource(com.free.hindi.shayari.R.drawable.romantic);
         }
 
 
 
-        TextView titleTextView = (TextView) v.findViewById(R.id.text1);
+        TextView titleTextView = (TextView) v.findViewById(com.free.hindi.shayari.R.id.text1);
         titleTextView.setText(parseObject.getString("shayari_name"));
 
         itemId = parseObject.getObjectId();

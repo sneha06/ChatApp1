@@ -1,4 +1,4 @@
-package com.android.sneha.shayari;
+package com.free.hindi.shayari;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import com.google.android.gms.ads.AdView;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
+import com.startapp.android.publish.StartAppAd;
 
 import adapters.ListAdapter;
 
@@ -22,19 +23,21 @@ public class ShayarilistActivity extends ActionBarActivity {
     ListView list;
     ListAdapter adapter;
     protected static String sid;
+    public static String mimage;
+    private StartAppAd startAppAd = new StartAppAd(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shayarilist);
+        setContentView(com.free.hindi.shayari.R.layout.activity_shayarilist);
 
-        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdView mAdView = (AdView) findViewById(com.free.hindi.shayari.R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-        String mimage = getIntent().getStringExtra("image");
+          mimage = getIntent().getStringExtra("image");
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+        Toolbar toolbar = (Toolbar) findViewById(com.free.hindi.shayari.R.id.app_bar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setTitle(mimage.toUpperCase() + " Shayari");
@@ -42,12 +45,12 @@ public class ShayarilistActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        list = (ListView) findViewById(R.id.listView);
+        list = (ListView) findViewById(com.free.hindi.shayari.R.id.listView);
 
         adapter = new ListAdapter(this, new ParseQueryAdapter.QueryFactory<ParseObject>() {
 
             public ParseQuery<ParseObject> create() {
-                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Love");
+                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(mimage);
 
                 return query;
             }
@@ -62,9 +65,15 @@ public class ShayarilistActivity extends ActionBarActivity {
 
                 Intent intent = new Intent(ShayarilistActivity.this, ShowShayariActivity.class);
                 sid = adapter.getItem(position).getObjectId();
-                System.out.println(" set on item click lisner call" + adapter.getItem(position).getObjectId());
+                System.out.println(" set on item click listener call" + adapter.getItem(position).getObjectId());
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        startAppAd.onResume();
     }
 }

@@ -1,4 +1,4 @@
-package com.android.sneha.shayari;
+package com.free.hindi.shayari;
 
 import android.app.Application;
 

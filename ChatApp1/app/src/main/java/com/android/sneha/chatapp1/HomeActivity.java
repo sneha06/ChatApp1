@@ -115,7 +115,7 @@ public class HomeActivity extends ActionBarActivity {
         if (id == R.id.action_logout) {
             ParseUser.logOut();
             if(ParseUser.getCurrentUser() == null) {
-                Intent intent = new Intent(HomeActivity.this, SignUpActivity.class);
+                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
             return true;

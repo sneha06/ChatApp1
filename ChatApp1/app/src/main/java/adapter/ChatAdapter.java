@@ -21,10 +21,10 @@ public class ChatAdapter extends ArrayAdapter<String> {
     protected Context mContext;
     protected List<String> mSenderName;
     protected List<String> mMessage ;
-    String  senderf;
+    protected List<String> senderf;
     List<String> m;
     String s;
-    public ChatAdapter(Context context, String[] mmessage,List<String> message,String f) {
+    public ChatAdapter(Context context, String[] mmessage,List<String> message,List<String> f) {
         super(context, R.layout.listitem,mmessage);
         // super(context,R.layout.listitem,message);
 
@@ -52,7 +52,7 @@ public class ChatAdapter extends ArrayAdapter<String> {
         }
         s = mMessage.get(position).toString();
 
-        if(senderf == null){
+        if(senderf.get(position).toString() == "sender"){
             //message send by me
             holder.myLayout.setVisibility(View.VISIBLE);
             holder.senderLayout.setVisibility(View.GONE);

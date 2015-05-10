@@ -20,7 +20,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import adapter.ChatAdapter;
+import database.DbAdapter;
 
 
 public class ChatActivity extends ActionBarActivity {
@@ -39,6 +39,7 @@ public class ChatActivity extends ActionBarActivity {
      static String f;
     static String d;
     List<String> smessage;
+    DbAdapter dbHelper  = new DbAdapter(ChatActivity.this);
 
     String[] k = {"s"};
     @Override
@@ -50,11 +51,15 @@ public class ChatActivity extends ActionBarActivity {
         recipientId = getIntent().getStringExtra("ruid");
         userName = getIntent().getStringExtra("uName");
         //recipientId = getIntent().getStringExtra("ruid");
-        userList = (ListView) findViewById(R.id.list);
+         userList = (ListView) findViewById(R.id.list);
+
+        //dbHelper.getAllData(ChatActivity.this,userList);
+        dbHelper.getAllData(ChatActivity.this,userList);
         if(d != null){
             smessage.add(d);
-            ChatAdapter adapter = new ChatAdapter(ChatActivity.this,k,smessage,f);
-            userList.setAdapter(adapter);
+            long id = dbHelper.insertData(userName,recipientId,d);
+//            ChatAdapter adapter = new ChatAdapter(ChatActivity.this,k,smessage,f);
+//            userList.setAdapter(adapter);
 
 //            AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
 //            builder.setTitle("Message").setMessage(d.toString())
@@ -97,8 +102,11 @@ public class ChatActivity extends ActionBarActivity {
                     push.sendInBackground();
                     sendtext.setText("");
                     smessage.add(text);
-                    ChatAdapter adapter = new ChatAdapter(ChatActivity.this,k,smessage,f);
-                    userList.setAdapter(adapter);
+                     String senderId = "sender";
+                    String name = "sender";
+                    long id = dbHelper.insertData(name,senderId,text);
+//                    ChatAdapter adapter = new ChatAdapter(ChatActivity.this,k,smessage,f);
+//                    userList.setAdapter(adapter);
 
                }
             }
@@ -106,6 +114,11 @@ public class ChatActivity extends ActionBarActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -125,7 +138,7 @@ public class ChatActivity extends ActionBarActivity {
         if (id == R.id.action_logout) {
             ParseUser.logOut();
             if(ParseUser.getCurrentUser() == null) {
-                Intent intent = new Intent(ChatActivity.this, SignUpActivity.class);
+                Intent intent = new Intent(ChatActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
             return true;

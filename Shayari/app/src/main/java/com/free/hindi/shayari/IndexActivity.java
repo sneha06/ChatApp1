@@ -1,4 +1,4 @@
-package com.android.sneha.shayari;
+package com.free.hindi.shayari;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,25 +8,28 @@ import android.widget.ImageView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.startapp.android.publish.StartAppAd;
 
 
 public class IndexActivity extends ActionBarActivity {
 
     ImageView mBewafa, mDard, mLove, mRomantic;
+    private StartAppAd startAppAd = new StartAppAd(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_index);
+        StartAppAd.showSplash(this, savedInstanceState);
+        setContentView(com.free.hindi.shayari.R.layout.activity_index);
 
-        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdView mAdView = (AdView) findViewById(com.free.hindi.shayari.R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-        mBewafa = (ImageView) findViewById(R.id.bewafa);
-        mDard = (ImageView) findViewById(R.id.dard);
-        mLove = (ImageView) findViewById(R.id.love);
-        mRomantic = (ImageView) findViewById(R.id.romantic);
+        mBewafa = (ImageView) findViewById(com.free.hindi.shayari.R.id.bewafa);
+        mDard = (ImageView) findViewById(com.free.hindi.shayari.R.id.dard);
+        mLove = (ImageView) findViewById(com.free.hindi.shayari.R.id.love);
+        mRomantic = (ImageView) findViewById(com.free.hindi.shayari.R.id.romantic);
 
         mBewafa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +64,18 @@ public class IndexActivity extends ActionBarActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        startAppAd.onBackPressed();
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        startAppAd.onResume();
     }
 
 
